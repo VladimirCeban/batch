@@ -19,7 +19,7 @@ import org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication()
+@SpringBootApplication
 @AllArgsConstructor
 @Configuration
 public class BatchTestApplication implements CommandLineRunner {

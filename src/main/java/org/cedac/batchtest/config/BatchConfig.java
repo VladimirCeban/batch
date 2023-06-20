@@ -22,6 +22,7 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,9 +30,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@EnableBatchProcessing
 @AllArgsConstructor
-public class BatchConfig {
+public class BatchConfig extends BatchAutoConfiguration{
 
     private CustomerRepository customerRepository;
 
@@ -76,12 +76,15 @@ public class BatchConfig {
     }
 
     @Bean
-    public Step importCsvStep(JobRepository repository) {
+    public Step importCsvStep(JobRepository repository,
+    FlatFileItemReader<CustomerDTO> CustomerReader,
+                              CsvItemProcessor processor,
+                              RepositoryItemWriter<Customer> writer) {
         return new StepBuilder("importCsvStep", repository)
                 .<CustomerDTO, Customer>chunk(10, transactionManager)
-                .reader(CustomerReader())
-                .processor(processor())
-                .writer(writer())
+                .reader(CustomerReader)
+                .processor(processor)
+                .writer(writer)
                 //.tasklet(importTasklet(), transactionManager)
                 .build();
     }

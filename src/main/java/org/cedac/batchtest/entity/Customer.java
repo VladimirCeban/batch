@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 @ToString
 @Entity
+
 public class Customer {
 
     @Id
