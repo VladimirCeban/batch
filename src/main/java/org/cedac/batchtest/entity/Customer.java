@@ -2,7 +2,6 @@ package org.cedac.batchtest.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -17,10 +16,10 @@ public class Customer {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "firstname")
+    @Column
     private String firstName;
 
-    @Column(name = "lastname")
+    @Column
     private String lastName;
 
     @Column(name = "email")
